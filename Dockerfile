@@ -1,11 +1,9 @@
-FROM codekoala/arch
-MAINTAINER Josh VanderLinden <codekoala@gmail.com>
+FROM openjdk:8-jre-slim
+MAINTAINER Vitaliy Podlubnyak <pvawsc@gmail.com>
 
-RUN pacman -Sy --noconfirm --needed unzip \
-        fontconfig freetype2 libcups \
-        jre7-openjdk ruby ruby-compass
-
-ENTRYPOINT ["/opt/Sencha/Cmd/5.1.2.52/sencha"]
+RUN apt-get update && \
+  apt-get -y install lsof procps wget gpg curl unzip && \
+  rm -rf /var/lib/apt/lists/*
 
 RUN curl -o /cmd.run.zip http://cdn.sencha.com/cmd/5.1.2.52/SenchaCmd-5.1.2.52-linux-x64.run.zip && \
     unzip -p /cmd.run.zip > /cmd-install.run && \
